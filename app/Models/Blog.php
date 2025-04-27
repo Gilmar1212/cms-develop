@@ -12,7 +12,8 @@ class Blog extends Model
         return self::create([
             'title' => $data['title'],
             'content' => $data['content'],
-            'slug' => Str::slug($data['title']),
+            'slug' => String::slug($data['title']),
+            'short-description' => $data['short-description'],
             'author_id' => $authorId,
             'status' => 'draft'
         ]);
