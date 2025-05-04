@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', ["App\Http\Controllers\indexController", "index"])->name('home');
+Route::get('/', ["App\Http\Controllers\IndexController", "index"])->name('home');
+Route::delete('/delete/{id?}', ["App\Http\Controllers\deletePostController", "destroy"])->name('delete');
 Route::get('/blog', ["App\Http\Controllers\blogController", "blog"])->name('blog');
 Route::post('/blog', ["App\Http\Controllers\blogController", "store"])->name('store');
+Route::get('/alterar/{id?}', ["App\Http\Controllers\updateController", "returnUpdate"])->name('alterar');
+Route::post('/alterar/salvar', ["App\Http\Controllers\updateController", "update"])->name('update');
