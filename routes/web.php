@@ -1,21 +1,29 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/', [App\Http\Controllers\indexController::class, 'index'])->name('home');
+Route::get('/welcome',function(){
+    return view('welcome');
+});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('/blog')->name('blog.')->controller(\App\Http\Controllers\blogController::class)->group( function () {
+    Route::get('/', 'index')->name('home');
+    Route::delete('/delete/{id}', 'destroy')->name('delete');
+    Route::get('/post-area', 'create')->name('create');
+    Route::post('/post', 'store')->name('store');
+    Route::get('/edit/{id?}', 'edit')->name('edit');
+    Route::put('/edit/{id?}', 'update')->name('update');
+});
 
-Route::get('/', ["App\Http\Controllers\IndexController", "index"])->name('home');
-Route::delete('/delete/{id?}', ["App\Http\Controllers\deletePostController", "destroy"])->name('delete');
-Route::get('/blog', ["App\Http\Controllers\blogController", "blog"])->name('blog');
-Route::post('/blog', ["App\Http\Controllers\blogController", "store"])->name('store');
-Route::get('/alterar/{id?}', ["App\Http\Controllers\updateController", "returnUpdate"])->name('alterar');
-Route::post('/alterar/salvar', ["App\Http\Controllers\updateController", "update"])->name('update');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';

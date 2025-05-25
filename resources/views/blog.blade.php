@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('title','Blog')
 @section('content')
-<form action="{{route('store')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('blog.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div>
         <label for="title">Titulo:</label><br>
