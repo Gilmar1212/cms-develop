@@ -21,6 +21,8 @@ class CreateBlogsTable extends Migration
             $table->text('content');
             $table->string('short_description')->nullable();
             $table->string('image_url')->nullable();
+            $table->string('user-id');
+            $table->foreign('id')->references('user_id')->on('users');
             // $table->string('author');
             // $table->string('category');
             // $table->string('tags')->nullable();

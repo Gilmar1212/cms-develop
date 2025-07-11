@@ -19,6 +19,7 @@
         <label for="image">image:</label><br>
         <input type="file" name="image" id="image" accept="image/*" required>
     </div>
+    <input type="hidden" name="user_id" value="{{request('user-id')}}">
     <button type="submit">Send</button>
 </form>
 @if(session('success'))

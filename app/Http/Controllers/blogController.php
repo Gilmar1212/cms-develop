@@ -30,6 +30,7 @@ class blogController extends Controller
         $cadastro->content = $request->content;
         $cadastro->slug = Str::slug($request->title);
         $cadastro->short_description = $request->short_description;
+        $cadastro->user_id = $request->user_id;
         // $cadastro->slug = $request->title;
 
         if ($request->hasFile('image')) {

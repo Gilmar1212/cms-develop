@@ -4,12 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\indexController::class, 'index'])->name('home');
-Route::get('/welcome',function(){
-    return view('welcome');
-});
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::prefix('/blog')->name('blog.')->controller(\App\Http\Controllers\blogController::class)->group( function () {
     Route::get('/', 'index')->name('home');
     Route::delete('/delete/{id}', 'destroy')->name('delete');
@@ -20,10 +15,3 @@ Route::prefix('/blog')->name('blog.')->controller(\App\Http\Controllers\blogCont
 });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__ . '/auth.php';
