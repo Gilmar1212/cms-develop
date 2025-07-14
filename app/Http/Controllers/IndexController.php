@@ -15,14 +15,15 @@ class IndexController extends Controller
         $tokens = PersonalAccessToken::where('tokenable_id', $user->id)
         ->select('id', 'name', 'created_at', 'last_used_at', 'token')
         ->get();        
-        }             
+        }                     
+        $posts = Blog::where('user_id', $user->id)->latest()->get();
         
-       $posts = Blog::latest()->get();
-       return view('index',[
-        'posts'=>$posts,
-        'tokens'=> $tokens,
-        'user' =>$user
-       ]);
+           return view('index',[
+            'posts'=>$posts,
+            'tokens'=> $tokens,
+            'user' =>$user
+           ]);
+       
     }  
    
 }

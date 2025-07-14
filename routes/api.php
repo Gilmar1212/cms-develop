@@ -14,19 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Login via token
-Route::get('/login', [\App\Http\Controllers\Api\loginApiController::class, 'returnViewLogin'])->name("login");
-
-Route::post('/login-api', [\App\Http\Controllers\Api\loginApiController::class, 'login'])->name('login-api');
-
-// Logout — precisa do token no header
-Route::middleware('auth:sanctum')->post('/logout-api', [\App\Http\Controllers\Api\loginApiController::class, 'logout']);
-
-// Rota protegida para mostrar infos (com token no header)
-Route::middleware('auth:sanctum')->get('/showapi', [\App\Http\Controllers\showJsonController::class, 'genInfos'])->name('showapi');
-
-// Rota protegida para pegar um post por slug
-Route::middleware('auth:sanctum')->get('/posts/{slug}', [\App\Http\Controllers\showJsonController::class, 'show']);
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+});
+Route::get('/showapi/{token}', [\App\Http\Controllers\showJsonController::class, "genInfos"])->name('showapi');
+Route::get('posts/{slug}/{token}', [\App\Http\Controllers\showJsonController::class, "show"]);
 
 
