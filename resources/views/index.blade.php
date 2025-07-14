@@ -15,20 +15,12 @@
         @endauth
     </div>
     @endif
-
-    <a class="dash-btn" href="{{route('blog.create')}}" title="Blog">Cadastrar Post</a>
-    <form action="{{route('blog.edit')}}" method="post" enctype="multipart/form-data">
-        @csrf
-        <div>
-            <label for="email">E-mail:</label><br>
-            <input type="text" value="{{old('email')}}" name="email" id="email" required>
-        </div>
-        <div>
-            <label for="senha">Senha:</label><br>
-            <input type="password" name="password" id="password">
-        </div>
-        <button type="submit">Send</button>
-    </form>
+    @foreach($tokens as $token)
+        <p>{{$token->token}}</p>
+        <p>{{$token->tokenable_id}}</p>
+    @endforeach
+    <a class="dash-btn" href="{{route('blog.create')}}" title="Blog">Cadastrar Post</a>   
+    @if(Auth::user() == true)
     @isset($posts)
     <ul id="lista-posts">
         @foreach ($posts as $post)
@@ -52,6 +44,7 @@
     </div>
     @endif
     @endisset
+    @endif
     <script>
         document.getElementById('recarregar').addEventListener('click', () => {
             fetch('/api/blogs') // você pode ter essa rota separada só pra JS

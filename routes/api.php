@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
-Route::get('/showapi', [\App\Http\Controllers\showJsonController::class, "genInfos"])->name('showapi');
-Route::get('posts/{slug}', [\App\Http\Controllers\showJsonController::class, "show"]);
+Route::get('/showapi/{token}', [\App\Http\Controllers\showJsonController::class, "genInfos"])->name('showapi');
+Route::get('posts/{slug}/{token}', [\App\Http\Controllers\showJsonController::class, "show"]);
 
 
