@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class loginApiController extends Controller
 {
+    public function returnViewLogin(){
+        return view('login');
+    }
     public function login(Request $request){
         $credentials = $request->only('email','password');
         if(!Auth::attempt($credentials)){

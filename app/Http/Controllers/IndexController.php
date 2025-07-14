@@ -9,13 +9,14 @@ class IndexController extends Controller
 {
     public  function index(){
         $user = Auth::user();
-       $tokens = [];
-       $posts = [];
+        $tokens = collect();
+        $posts = collect();
        if($user){
         $tokens = PersonalAccessToken::where('tokenable_id', $user->id)
         ->select('id', 'name', 'created_at', 'last_used_at', 'token')
-        ->get();
-        }
+        ->get();        
+        }             
+        
        $posts = Blog::latest()->get();
        return view('index',[
         'posts'=>$posts,

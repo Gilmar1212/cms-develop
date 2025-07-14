@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Login via token
-Route::post('/login-api', [\App\Http\Controllers\Api\loginApiController::class, 'login']);
+Route::get('/login', [\App\Http\Controllers\Api\loginApiController::class, 'returnViewLogin'])->name("login");
+
+Route::post('/login-api', [\App\Http\Controllers\Api\loginApiController::class, 'login'])->name('login-api');
 
 // Logout — precisa do token no header
 Route::middleware('auth:sanctum')->post('/logout-api', [\App\Http\Controllers\Api\loginApiController::class, 'logout']);
