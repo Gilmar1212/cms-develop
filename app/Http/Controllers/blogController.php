@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class blogController extends Controller
+class BlogController extends Controller
 {
     public function create()
     {

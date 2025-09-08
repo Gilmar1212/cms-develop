@@ -2,18 +2,8 @@
 @section('title', 'CMS ALL')
 @section('content')
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-<form action="{{route('login-sys.login')}}" method="post">
-        @csrf
-        <input type="email" name="email" placeholder="digite seu email">
-        <input type="password" name="password" placeholder="digite sua senha">
-        <button type="submit" name="logar">Login</button>
-    </form>
-    @isset($token)
-    @foreach($token as $tokens)
-    <p>{{$token->token}}</p>
-    <p>{{$token->tokenable_id}}</p>
-    @endforeach
-    @endisset
+ <h1>Bem-vindo, {{ $user }}</h1>
+<p>Seu token: {{ $token }}</p>
     <a class="dash-btn" href="{{route('blog.create')}}" title="Blog">Cadastrar Post</a>
     @if(Auth::user() == true)
     @isset($posts)
