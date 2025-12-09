@@ -8,38 +8,12 @@
         <input type="password" name="password" placeholder="digite sua senha">
         <button type="submit" name="logar">Login</button>
     </form>
-    <a href="{{route('register-sys.register')}}" title="Cadastrar">Registrar</a>
-    @isset($token)
-    @foreach($token as $tokens)
-    <p>{{$token->token}}</p>
-    <p>{{$token->tokenable_id}}</p>
-    @endforeach
-    @endisset
-    <a class="dash-btn" href="{{route('blog.create')}}" title="Blog">Cadastrar Post</a>
-    @if(Auth::user() == true)
-    @isset($posts)
-    <ul id="lista-posts">
-        @foreach ($posts as $post)
-        <li>
-            <strong>Titulo: {{ $post->title }}</strong><br>
-            <span>Conteúdo: {{ $post->content }}</span>
-        </li>
-        <img src="{{ asset('storage/' . $post->image_url) }}" alt="Imagem do Blog" width="200">
-        <a class="dash-btn" href="{{ route('blog.update', ['id' => $post->id]) }}" title="Blog">Alterar Post</a>
-        <form action="{{ route('blog.delete', ['id' => $post->id]) }}" method="POST" onsubmit="return confirm('Você tem certeza que deseja deletar este post?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit">Deletar</button>
-        </form>
-        @endforeach
-    </ul>
+    <a href="{{route('register-sys.register')}}" title="Cadastrar">Registrar</a>    
     <!-- <button id="recarregar" class="dash-btn">Recarregar Posts</button> -->
     @if(session('success'))
     <div class="alert alert-success">
         {{session('success')}}
     </div>
-    @endif
-    @endisset
     @endif
     <script>
         document.getElementById('recarregar').addEventListener('click', () => {

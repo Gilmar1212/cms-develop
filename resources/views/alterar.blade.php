@@ -1,8 +1,9 @@
 @extends('layouts.template')
 @section('title','Blog')
 @section('content')
-<form action="{{route('update')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('blog.update')}}" method="post" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
     <input type="hidden" name="id" value="{{ request('id') }}">
     <div>
         <label for="title">Titulo:</label><br>
@@ -22,4 +23,9 @@
     </div>
     <button type="submit">Send</button>
 </form>
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 @endsection
