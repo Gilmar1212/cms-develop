@@ -80,7 +80,7 @@ class BlogController extends Controller
         $blog->save();
 
         // Redirecione com uma mensagem de sucesso
-        return redirect()->back()->with('success', 'Post atualizado com sucesso.');
+        return redirect()->route('home')->with('success', 'Post atualizado com sucesso.');
     }
      public function destroy($id)
     {

@@ -3,7 +3,6 @@
 @section('content')
 <form action="{{route('blog.store')}}" method="post" enctype="multipart/form-data">
     @csrf
-    @method('PUT')
     <div>
         <label for="title">Titulo:</label><br>
         <input type="text" name="title" id="title" required>
