@@ -36,6 +36,8 @@ class BlogController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('blog', 'public');
             $cadastro->image_url = $path;
+
+
         }
 
         $cadastro->save();
