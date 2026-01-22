@@ -95,9 +95,9 @@ class BlogController extends Controller
             // Remove o post do banco de dados
             $post->delete();
 
-            return redirect()->route('home')->with('success', 'Post e imagem deletados com sucesso.');
+            return back()->with('success', 'Post e imagem deletados com sucesso.');
         } else {
-            return redirect()->route('home')->with('error', 'Post não encontrado.');
+            return back()->with('error', 'Post não encontrado.');
         }
     }
 }

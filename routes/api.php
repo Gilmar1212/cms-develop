@@ -15,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/login', function (Request $request) {
-});
-Route::middleware('auth:sanctum')->get('/logout', [loginApiController::class,'logout']);
+Route::post('/login-api', [loginApiController::class,'loginApi'])->name("login-api");
+Route::middleware('auth:sanctum')->get('/logout', [loginApiController::class,'logout'])->name("logout");
 Route::get('/showapi/{token}', [\App\Http\Controllers\showJsonController::class, "genInfos"])->name('showapi');
 Route::get('posts/{slug}/{token}', [\App\Http\Controllers\showJsonController::class, "show"]);
 

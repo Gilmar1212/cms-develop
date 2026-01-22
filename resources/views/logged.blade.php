@@ -1,13 +1,12 @@
 @extends('layouts.template')
 @section('title', 'CMS ALL')
 @section('content')
- <form action="{{ route('login-sys.logout') }}" method="POST">
+ <form action="{{ route('logout') }}" method="POST">
         @csrf
     <button type="submit">Logout</button>
 </form>
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
  <h1>Bem-vindo, {{ $user }}</h1>
-<p>Seu token: {{ $token }}</p>
     <a class="dash-btn" href="{{route('blog.create')}}" title="Blog">Cadastrar Post</a>
     @if(Auth::user() == true)
     @isset($posts)

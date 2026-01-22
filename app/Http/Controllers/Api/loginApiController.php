@@ -1,43 +1,47 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\Blog;
-use App\Http\Controllers\Controller;
+
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 class LoginApiController extends Controller
 {
-    public function returnViewLogin()
+    public function loginApi(Request $request)
     {
-        return view('login');
-    }
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-        if (!Auth::attempt($credentials)) {
-            return back()->withErrors(['message' => 'Credenciais inválidas']);
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Credenciais inválidas'
+            ], 401);
         }
 
-        $user = Auth::user();
-        $posts = collect();
+        // Apaga tokens antigos (opcional)
+        $user->tokens()->delete();
+
         $token = $user->createToken('api-token')->plainTextToken;
-        $posts = Blog::where('user_id', $user->id)->latest()->get();
-        session(['api_token' => $token]);                 
-        if($posts !== NULL){
-           return view('logged',[
-            'posts'=>$posts,
-            'token'=> $token,
-            'user'=>$user->name
-           ]);
-        }else{
-            return view('logged');
-        }
+
+        return response()->json([
+            'token' => $token,
+            'user' => $user->name
+        ]);
     }
+
     public function logout(Request $request)
     {
-        $request->session()->forget('api_token');
-        Auth::logout();
-        return redirect()->route('home')->with('message', 'Logout feito com sucesso!');
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logout realizado'
+        ]);
     }
 }
+

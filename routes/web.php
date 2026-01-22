@@ -4,9 +4,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('home');
-Route::prefix('/login-sys')->name('login-sys.')->controller(\App\Http\Controllers\Api\LoginApiController::class)->group(function(){
-    Route::post('/login',[App\Http\Controllers\Api\LoginApiController::class,'login'])->name('login');
-    Route::post('/logout',[App\Http\Controllers\Api\LoginApiController::class,'logout'])->name('logout');
+Route::prefix('/login-sys')->name('login-sys.')->controller(\App\Http\Controllers\LoginController::class)->group(function(){
+    Route::get('/login',[App\Http\Controllers\LoginController::class,'returnViewLogin'])->name('user-area');
+    Route::post('/login',[App\Http\Controllers\LoginController::class,'login'])->name('login');
+    Route::post('/logout',[App\Http\Controllers\LoginController::class,'logout'])->name('logout');
 });
 Route::prefix('/register-sys')->name('register-sys.')->controller(\App\Http\Controllers\BlogController::class)->group( function(){
     Route::get('/register',[App\Http\Controllers\RegisterController::class,'registerView'])->name('register');
