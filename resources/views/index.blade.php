@@ -8,8 +8,13 @@
         <input type="password" name="password" placeholder="digite sua senha">
         <button type="submit" name="logar">Login</button>
 </form>
-    <a href="{{route('register-sys.register')}}" title="Cadastrar">Registrar</a>    
+    <a href="{{route('register-sys.register')}}" title="Cadastrar" class="bg-red-500">Registrar</a>    
     <!-- <button id="recarregar" class="dash-btn">Recarregar Posts</button> -->
+     @if(session('api_key'))
+        <div>
+            <code>Sua chave de api: {{session('api_key')}}</code>
+        </div>
+     @endif
     @if(session('success'))
     <div class="alert alert-success">
         {{session('success')}}

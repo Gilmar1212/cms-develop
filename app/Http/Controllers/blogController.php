@@ -91,6 +91,8 @@ class BlogController extends Controller
             // Verifica se há uma imagem associada ao post
             if ($post->image_url && Storage::disk('public')->exists($post->image_url)) {
                 Storage::disk('public')->delete($post->image_url);
+                SendWebhookJob::dispatch($id,'image.deleted');
+                
             }
             // Remove o post do banco de dados
             $post->delete();

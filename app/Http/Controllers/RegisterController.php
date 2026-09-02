@@ -17,13 +17,15 @@ class RegisterController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:6|confirmed',
         ]);
-       User::create([
+
+       $user = User::create([
         'name'=>$validated['name'],
         'email'=>$validated['email'],
         'password'=>Hash::make($validated['password'])
        ]);
-        return redirect()->route('home')->with('success',"Cadastro realizado com sucesso");
+       $token = $user->createToken('api-key')->plainTextToken;
+        return redirect()->route('home')->with('success',"Cadastro realizado com sucesso")->with('api_key',$token);
     }
 }
